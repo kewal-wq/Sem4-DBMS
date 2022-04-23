@@ -8,14 +8,14 @@ const con = mysql.createConnection({
     password: process.env.DATABASE_PASSWORD
   });
 
-  module.exports.getTheories = (req, res) => {
+module.exports.getProfessors = (req, res) => {
 
-    const sql = "SELECT * FROM Theory";
+    const sql = "SELECT * FROM Professor";
     con.query(sql, (err, result) => {
         if(err)
         {
             console.log(err);
-            res.status(400).json({message: "Cannot select from theory"});
+            res.status(400).json({message: "Cannot select from lab"});
         }
         else{
             res.send(result)
@@ -24,22 +24,22 @@ const con = mysql.createConnection({
     })
 }
 
-module.exports.insertTheory = (req, res) => {
-    const sql = "INSERT INTO Theory (Course_Name, Credit, Section_1, Section_2) VALUES ('CS202', 2, 'YES', 'NO')"
+module.exports.insertProfessor = (req, res) => {
+    const sql = "INSERT INTO Professor (Professor_ID, Email_ID, Name, Course_Name) VALUES (202051040, 4, 'Antrisk Sir', 'CS202')"
     con.query(sql, (err, result) => {
         if(err)
         {
             console.log(err);
         }
         else{
-            res.send("Inserted")
+            res.send(result)
           
         }
     })
 }
 
-module.exports.updateTheory = (req, res) => {
-const sql = "UPDATE Theory SET Name = 'Noverun Sir' WHERE Course_Name=''";
+module.exports.updatePr = (req, res) => {
+const sql = "UPDATE Lab SET Course_Name=' CS260' WHERE Course_Name = 'CS268'";
 con.query(sql, (err, result) => {
     if(err)
     {
@@ -51,17 +51,17 @@ con.query(sql, (err, result) => {
 })
 }
 
-module.exports.deleteTheory = (req, res) => {
+module.exports.deleteLab = (req, res) => {
     const {CourseName} = req.params;
-    console.log(CourseName);
-    const sql = "DELETE FROM Theory Where Course_Name=''";
+    const sql = `DELETE FROM Lab Where Course_Name='${CourseName}'`;
     con.query(sql, (err, result) => {
         if(err)
         {
             console.log(err);
         }
         else{
-            console.log("Deleted Successfully!");
+            res.status(200).json({message: "Success"});
         }
     })
 }
+

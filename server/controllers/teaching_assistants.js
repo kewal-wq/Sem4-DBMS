@@ -8,9 +8,9 @@ const con = mysql.createConnection({
     password: process.env.DATABASE_PASSWORD
   });
 
-  module.exports.getTheories = (req, res) => {
+  module.exports.getTAs = (req, res) => {
 
-    const sql = "SELECT * FROM Theory";
+    const sql = "SELECT * FROM Teaching_Assistant";
     con.query(sql, (err, result) => {
         if(err)
         {
@@ -24,8 +24,8 @@ const con = mysql.createConnection({
     })
 }
 
-module.exports.insertTheory = (req, res) => {
-    const sql = "INSERT INTO Theory (Course_Name, Credit, Section_1, Section_2) VALUES ('CS202', 2, 'YES', 'NO')"
+module.exports.insertTA = (req, res) => {
+    const sql = "INSERT INTO Teaching_Assistant (TA_ID, Email_ID, Name, Course_Name ) VALUES (202051040,'avnit@gmail.com','avnit','CS262')"
     con.query(sql, (err, result) => {
         if(err)
         {
@@ -38,8 +38,8 @@ module.exports.insertTheory = (req, res) => {
     })
 }
 
-module.exports.updateTheory = (req, res) => {
-const sql = "UPDATE Theory SET Name = 'Noverun Sir' WHERE Course_Name=''";
+module.exports.updateTA = (req, res) => {
+const sql = "UPDATE Teaching_Assistant SET Name = 'Noverun Sir' WHERE TA_ID=";
 con.query(sql, (err, result) => {
     if(err)
     {
@@ -51,10 +51,10 @@ con.query(sql, (err, result) => {
 })
 }
 
-module.exports.deleteTheory = (req, res) => {
+module.exports.deleteTA = (req, res) => {
     const {CourseName} = req.params;
     console.log(CourseName);
-    const sql = "DELETE FROM Theory Where Course_Name=''";
+    const sql = "DELETE FROM Teaching_Assistant Where TA_ID=";
     con.query(sql, (err, result) => {
         if(err)
         {

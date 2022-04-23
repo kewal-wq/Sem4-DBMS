@@ -3,7 +3,10 @@ const mysql = require('mysql2');
 const app = express();
 
 require('dotenv').config();
+const cors = require('cors');
 const labRoutes = require('./routes/labs');
+const theoryRoutes = require('./routes/theories');
+const teaching_assistantsRoutes = require('./routes/teaching_assistants');
 
 
 const con = mysql.createConnection({
@@ -22,25 +25,15 @@ con.connect(function(err) {
   }
 });
 
+app.use(cors());
+
 app.get("/", (req, res) => {
     res.send("Hey Its mee");
 })
 
-// app.get("/deleteLabs", (req, res) => {
-//     const sql = "DELETE FROM Lab";
-//     con.query(sql, (err, rows) => {
-//         if(err)
-//         {
-//             console.log(err);
-//         }
-//         else{
-//           console.log("Deleted")
-           
-//         }
-//     })
-// })
-
 app.use("/", labRoutes);
+app.use("/", theoryRoutes);
+app.use("/", teaching_assistantsRoutes);
 
 
 
