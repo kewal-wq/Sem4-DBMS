@@ -1,14 +1,26 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-const Form = () => {
+const Form = ({setterFunction, label, type, placeholder}) => {
+
+    const sections = ['Section1', 'Section2'];
+const [checked, setChecked] = useState(new Array(sections.length).fill(false));
+
+    const handleSectionChange = (position) => {
+        const updatedChecked = checked.map((item, index) =>
+        position === index ? !item : item
+      );
+  
+      setChecked(updatedChecked);
+    }
+
+
   return (
     <div>
-        <label htmlFor=""></label>
-        <input type="text" placeholder='' id='' />
-        <label htmlFor="email"></label>
-        <input type="email" name="" id="" />
-        <input type="checkbox"className="checkbox-round"/>
-        <label className="checkbox-label"></label>
+  
+<div><label htmlFor="">{label}</label>
+        <input type={type} placeholder={placeholder} onChange={e=> setterFunction(e.target.value)} /></div>
+
+        
         
     </div>
   )

@@ -1,12 +1,4 @@
-const mysql = require('mysql2');
-
-const con = mysql.createConnection({
-    host: "localhost",
-    port: 3306,
-    database: "dbms",
-    user: "root",
-    password: process.env.DATABASE_PASSWORD
-  });
+const con = require ('../config/db');
 
 module.exports.getLabs = (req, res) => {
 
@@ -24,8 +16,26 @@ module.exports.getLabs = (req, res) => {
     })
 }
 
+module.exports.getOneLab = (req, res) => {
+    const {CourseName} = req.params;
+    const sql = `SELECT * FROM Lab WHERE Course_Name='${CourseName}'`;
+    con.query(sql, (err, result) => {
+        if(err)
+        {
+            console.log(err);
+            res.status(200).json(err.sqlMessage);
+        }
+        else{
+            res.status(200).json(result);
+        }
+    })
+}
+
 module.exports.insertLab = (req, res) => {
-    const sql = "INSERT INTO Lab (Course_Name, Credit, Section_1, Section_2) VALUES ('CS268', 2, 'YES', 'NO')"
+    console.log(req.body);
+    const {CourseName, Credit, sections} = req.body;
+    
+     const sql = `INSERT INTO Lab (Course_Name, Credit, Section_1, Section_2) VALUES ("${CourseName}", "${Credit}", "${sections[0] ? "YES": "NO"}", "${sections[1] ? "YES": "NO"}")`
     con.query(sql, (err, result) => {
         if(err)
         {
@@ -36,10 +46,13 @@ module.exports.insertLab = (req, res) => {
           
         }
     })
-}
+ }
 
 module.exports.updateLab = (req, res) => {
-const sql = "UPDATE Lab SET Course_Name=' CS260' WHERE Course_Name = 'CS268'";
+    const {CourseName} = req.params;
+    const {Credit, sections} = req.body;
+    console.log(req.body);
+const sql = `UPDATE Lab SET Credit='${Credit}', Section_1='${sections[0] ? "YES": "NO"}', Section_2='${sections[1] ? "YES": "NO"}' WHERE Course_Name ='${CourseName}'`;
 con.query(sql, (err, result) => {
     if(err)
     {
@@ -57,7 +70,7 @@ module.exports.deleteLab = (req, res) => {
     con.query(sql, (err, result) => {
         if(err)
         {
-            console.log(err);
+            res.status(200).json(err.sqlMessage);
         }
         else{
             res.status(200).json({message: "Success"});

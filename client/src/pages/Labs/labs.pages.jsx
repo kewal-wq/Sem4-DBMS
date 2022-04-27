@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React,{useState, useEffect} from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import ParticularLab from '../../components/lab/lab.component';
 
 
@@ -9,19 +9,19 @@ const Labs = () => {
     const [labs, setLabs] = useState();
 
     useEffect(() => {
-      
     const getLabs = async() => {
      const res = await axios.get("http://localhost:4000/getLabs");
      console.log(res.data);
      setLabs(res.data);
     }
-
     getLabs();
     
     }, [])
 
+    let navigate = useNavigate();
+
     const handleCreate = () => {
-        //Redirect to create form
+        navigate("/createLab");
     }
 
     
@@ -48,6 +48,7 @@ const Labs = () => {
               LOADING...
           </div>
       }
+      {/* <h1>HELLO LABS</h1> */}
     </div>
   )
 }

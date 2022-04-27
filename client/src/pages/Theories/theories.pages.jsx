@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React,{useState, useEffect} from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import ParticularTheory from '../../components/theory/theory.component';
 
@@ -20,8 +21,9 @@ const Theories = () => {
     
     }, [])
 
+    let navigate = useNavigate();
     const handleCreate = () => {
-        //Redirect to create form
+        navigate("/createTheory");
     }
 
     

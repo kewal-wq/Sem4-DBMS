@@ -1,20 +1,30 @@
 import axios from "axios";
-import React from "react";
+import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 import "./lab.styles.css";
 
 const ParticularLab = ({course_name, credit, sec1, sec2}) => {
 
+    const [error, setError] = useState("")
     const handleDelete = (CourseName) => {
         
         axios.delete(`http://localhost:4000/deleteLab/${CourseName}`)
         .then((res) => {
-            console.log("Deleted Lab Successfully")
+            if(res.data !== "Success")
+            {
+                setError(res.data);
+            }
+            else{
+                console.log("Deleted Successfully!")
+            }
         })
     }
 
+    let navigate = useNavigate();
+
     const handleEdit = (CourseName) => {
-    //Redirect to edit form
+    navigate(`/editLab/${CourseName}`);
     }
     return (
         <div className="particular__lab">
@@ -24,6 +34,7 @@ const ParticularLab = ({course_name, credit, sec1, sec2}) => {
             <p className="sec2">Section2: {sec2}</p>
             <button onClick={() => handleDelete(course_name)}>Delete</button>
             <button onClick={() => handleEdit(course_name)}>Edit</button>
+            <p>{error}</p>
         </div>
     )
 }

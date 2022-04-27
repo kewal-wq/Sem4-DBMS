@@ -6,6 +6,8 @@ require('dotenv').config();
 const cors = require('cors');
 const labRoutes = require('./routes/labs');
 const theoryRoutes = require('./routes/theories');
+const professorRoutes = require('./routes/proffesors');
+const taRoutes = require('./routes/teaching_assistants');
 const teaching_assistantsRoutes = require('./routes/teaching_assistants');
 
 
@@ -25,6 +27,9 @@ con.connect(function(err) {
   }
 });
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.use(cors());
 
 app.get("/", (req, res) => {
@@ -33,6 +38,7 @@ app.get("/", (req, res) => {
 
 app.use("/", labRoutes);
 app.use("/", theoryRoutes);
+app.use("/", professorRoutes);
 app.use("/", teaching_assistantsRoutes);
 
 
