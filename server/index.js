@@ -9,6 +9,7 @@ const theoryRoutes = require('./routes/theories');
 const professorRoutes = require('./routes/proffesors');
 const taRoutes = require('./routes/teaching_assistants');
 const teaching_assistantsRoutes = require('./routes/teaching_assistants');
+const complexRoute = require('./routes/complex')
 
 
 const con = mysql.createConnection({
@@ -40,6 +41,7 @@ app.use("/", labRoutes);
 app.use("/", theoryRoutes);
 app.use("/", professorRoutes);
 app.use("/", teaching_assistantsRoutes);
+app.use("/", complexRoute)
 
 
 

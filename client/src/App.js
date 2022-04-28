@@ -15,6 +15,7 @@ import TeachingAssistants from "./pages/Teaching_Assistants/teaching_assistants.
 import CreateTA from "./pages/Teaching_Assistants/CreateTA.pages";
 import EditTa from "./pages/Teaching_Assistants/EditTA.pages";
 import ProfAllotment from "./pages/Professors/ProfAllotment.pages";
+import Complex from "./pages/Complex/Complex.pages";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path="/editTa/:TaId" element={<EditTa />}></Route>
         <Route path="/createTheory" element={<CreateTheory />}></Route>
         <Route path="/editTheory/:CourseName" element={<EditTheory />}></Route>
+        <Route path="/complex" element={<Complex />}></Route>
 
       </Routes>
     </div>
